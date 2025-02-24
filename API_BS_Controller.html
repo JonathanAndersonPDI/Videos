@@ -14,10 +14,10 @@
     <button onclick="sendCommand('landing')">Go to Landing Page</button>
 
     <script>
-        // Updated Appspace API endpoint and BrightSign player ID
+        // Appspace API endpoint and BrightSign player details
         const APPSPACE_API_URL = "https://app3.cloud.appspace.com/api/v1/core/devices";
-        const PLAYER_ID = "ab505330-d999-485b-8168-1614994958cd";  // Found in Appspace Dashboard
-        const API_TOKEN = "8f15067a-7500-4016-933a-2d13e6429fea";  // From Appspace Admin Panel
+        const PLAYER_ID = "ab505330-d999-485b-8168-1614994958cd";  // BrightSign Player ID
+        const API_TOKEN = "8f15067a-7500-4016-933a-2d13e6429fea";  // Appspace API Token
 
         // Send Control Command to Appspace
         function sendCommand(action) {
@@ -34,7 +34,7 @@
                     commandData = { "action": "restart" };
                     break;
                 case "landing":
-                    commandData = { "action": "navigate", "url": "/cards/landing-page-id" }; // Replace with your actual landing content ID
+                    commandData = { "action": "navigate", "url": "/cards/landing-page-id" };
                     break;
                 default:
                     console.error("Invalid command");
@@ -51,9 +51,7 @@
                 body: JSON.stringify(commandData)
             })
             .then(response => {
-                if (!response.ok) {
-                    throw new Error(`API Error: ${response.status}`);
-                }
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
                 return response.json();
             })
             .then(data => console.log("Appspace Response:", data))
